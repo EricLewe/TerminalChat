@@ -1,0 +1,14 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "3s3fcUM1yJwRbNFQXEBZNx+3T5s=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/syohex/go-ipinfo",
+			"path": "github.com/syohex/go-ipinfo",
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
+		}
+	],
+	"rootPath": "github.com/EricLewe/TerminalChat/WatWeatherBot"
+}

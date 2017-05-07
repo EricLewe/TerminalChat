@@ -16,10 +16,9 @@
 		},
 		{
 			"checksumSHA1": "AjyXQ5eohrCPS/jSWZFPn5E8wnQ=",
-			"origin": "github.com/EricLewe/TerminalChat/WatServer/vendor/github.com/golang/protobuf/protoc-gen-go/descriptor",
 			"path": "github.com/golang/protobuf/protoc-gen-go/descriptor",
-			"revision": "30e2ee59f07dde0cccf86319ad2714f2867b16ba",
-			"revisionTime": "2017-05-07T14:10:28Z"
+			"revision": "18c9bb3261723cd5401db4d0c9fbc5c3b6c70fe8",
+			"revisionTime": "2017-04-27T21:32:20Z"
 		},
 		{
 			"checksumSHA1": "lZFWy27Qo6+m/keDjNFYTxSmvZw=",
@@ -56,6 +55,12 @@
 			"path": "github.com/nsf/termbox-go",
 			"revision": "7994c181db7761ca3c67a217068cf31826113f5f",
 			"revisionTime": "2017-03-27T20:26:38Z"
+		},
+		{
+			"checksumSHA1": "3s3fcUM1yJwRbNFQXEBZNx+3T5s=",
+			"path": "github.com/syohex/go-ipinfo",
+			"revision": "ddaf0862f2fbe914110c2a67204f69f2ddbb9a2b",
+			"revisionTime": "2014-09-20T14:35:17Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
@@ -191,17 +196,15 @@
 		},
 		{
 			"checksumSHA1": "dEnlY0L6kimIV+8REDONuIfexSk=",
-			"origin": "github.com/EricLewe/TerminalChat/WatServer/vendor/google.golang.org/grpc/reflection",
 			"path": "google.golang.org/grpc/reflection",
-			"revision": "30e2ee59f07dde0cccf86319ad2714f2867b16ba",
-			"revisionTime": "2017-05-07T14:10:28Z"
+			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
+			"revisionTime": "2017-05-02T17:16:45Z"
 		},
 		{
 			"checksumSHA1": "aPI7n9HNstH5VUx1xEhd2mg+SOc=",
-			"origin": "github.com/EricLewe/TerminalChat/WatServer/vendor/google.golang.org/grpc/reflection/grpc_reflection_v1alpha",
 			"path": "google.golang.org/grpc/reflection/grpc_reflection_v1alpha",
-			"revision": "30e2ee59f07dde0cccf86319ad2714f2867b16ba",
-			"revisionTime": "2017-05-07T14:10:28Z"
+			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
+			"revisionTime": "2017-05-02T17:16:45Z"
 		},
 		{
 			"checksumSHA1": "xEHHTEIORdW+3USbRp52rt2I7wE=",
@@ -226,18 +229,6 @@
 			"path": "google.golang.org/grpc/transport",
 			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
 			"revisionTime": "2017-05-02T17:16:45Z"
-		},
-		{
-			"checksumSHA1": "7zVTClYFaEW0jIE8d8wi3WqPoyc=",
-			"path": "myProjects/WatApi",
-			"revision": ""
-		},
-		{
-			"checksumSHA1": "5AuskNUAfJIwxd4Fdze0HhIJn/U=",
-			"origin": "github.com/EricLewe/TerminalChat/WatClient/vendor/myProjects/WatClientApiLib",
-			"path": "myProjects/WatClientApiLib",
-			"revision": "30e2ee59f07dde0cccf86319ad2714f2867b16ba",
-			"revisionTime": "2017-05-07T14:10:28Z"
 		}
 	],
 	"rootPath": "github.com/EricLewe/TerminalChat"

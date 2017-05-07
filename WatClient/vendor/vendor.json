@@ -3,218 +3,254 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "Bjl8V249BSzIN/LuyybVPRsvsHE=",
+			"checksumSHA1": "e9QOYdZNrXynQgSuqmfHase+ydk=",
+			"path": "github.com/EricLewe/TerminalChat/WatApi",
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
+		},
+		{
+			"checksumSHA1": "b5/qsl1Tb+RBHoBq6Hb/n/n1cAM=",
+			"path": "github.com/EricLewe/TerminalChat/WatClientApiLib",
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
+		},
+		{
+			"checksumSHA1": "En911lu7f/u83ScLGxAaTM2SJVE=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/gizak/termui",
 			"path": "github.com/gizak/termui",
-			"revision": "72304ddb9b4e9838426a021aad64a5a860e98324",
-			"revisionTime": "2017-05-02T14:12:00Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "kBeNcaKk56FguvPSUCEaH6AxpRc=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/golang/protobuf/proto",
 			"path": "github.com/golang/protobuf/proto",
-			"revision": "18c9bb3261723cd5401db4d0c9fbc5c3b6c70fe8",
-			"revisionTime": "2017-04-27T21:32:20Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "lZFWy27Qo6+m/keDjNFYTxSmvZw=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/golang/protobuf/ptypes/any",
 			"path": "github.com/golang/protobuf/ptypes/any",
-			"revision": "18c9bb3261723cd5401db4d0c9fbc5c3b6c70fe8",
-			"revisionTime": "2017-04-27T21:32:20Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "sfoot+dHmmOgWZS6GJ5X79ClZM0=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/golang/protobuf/ptypes/timestamp",
 			"path": "github.com/golang/protobuf/ptypes/timestamp",
-			"revision": "18c9bb3261723cd5401db4d0c9fbc5c3b6c70fe8",
-			"revisionTime": "2017-04-27T21:32:20Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "7hln62oZPZmyqEmgXaybf9WxQ7A=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/maruel/panicparse/stack",
 			"path": "github.com/maruel/panicparse/stack",
-			"revision": "ae43f192cef2add653fe1481a3070ed00a4a6981",
-			"revisionTime": "2017-03-28T20:03:51Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "MNkKJyk2TazKMJYbal5wFHybpyA=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/mattn/go-runewidth",
 			"path": "github.com/mattn/go-runewidth",
-			"revision": "14207d285c6c197daabb5c9793d63e7af9ab2d50",
-			"revisionTime": "2017-02-01T02:35:40Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "L3leymg2RT8hFl5uL+5KP/LpBkg=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/mitchellh/go-wordwrap",
 			"path": "github.com/mitchellh/go-wordwrap",
-			"revision": "ad45545899c7b13c020ea92b2072220eefad42b8",
-			"revisionTime": "2015-03-14T17:03:34Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "f0NKUiPTMbRgiyIUk4rsq0YswhU=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/github.com/nsf/termbox-go",
 			"path": "github.com/nsf/termbox-go",
-			"revision": "7994c181db7761ca3c67a217068cf31826113f5f",
-			"revisionTime": "2017-03-27T20:26:38Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "Zh++JEDfXo0DKQtoKVfScwVdvww=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/http2",
 			"path": "golang.org/x/net/http2",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "CBoO1DFToP49Ezph60yZ4J4PBBs=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/http2/hpack",
 			"path": "golang.org/x/net/http2/hpack",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "VrzPJyWI6disCgYuVEQzkjqUsJk=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/idna",
 			"path": "golang.org/x/net/idna",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "UxahDzW2v4mf/+aFxruuupaoIwo=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/internal/timeseries",
 			"path": "golang.org/x/net/internal/timeseries",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "3xyuaSNmClqG4YWC7g0isQIbUTc=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/lex/httplex",
 			"path": "golang.org/x/net/lex/httplex",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "9EZG3s2eOREO7WkBvigjk57wK/8=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/net/trace",
 			"path": "golang.org/x/net/trace",
-			"revision": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
-			"revisionTime": "2017-04-23T14:02:46Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "faFDXp++cLjLBlvsr+izZ+go1WU=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/text/secure/bidirule",
 			"path": "golang.org/x/text/secure/bidirule",
-			"revision": "470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4",
-			"revisionTime": "2017-04-25T18:31:26Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "ziMb9+ANGRJSSIuxYdRbA+cDRBQ=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/text/transform",
 			"path": "golang.org/x/text/transform",
-			"revision": "470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4",
-			"revisionTime": "2017-04-25T18:31:26Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "KG+XZAbxdkpBm3Fa3bJ3Ylq8CKI=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/text/unicode/bidi",
 			"path": "golang.org/x/text/unicode/bidi",
-			"revision": "470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4",
-			"revisionTime": "2017-04-25T18:31:26Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "Anof4bt0AU+Sa3R8Rq0KBnlpbaQ=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/golang.org/x/text/unicode/norm",
 			"path": "golang.org/x/text/unicode/norm",
-			"revision": "470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4",
-			"revisionTime": "2017-04-25T18:31:26Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "61oRC/n7DFqHNu6Z+4fAKY1FVCY=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/genproto/googleapis/rpc/status",
 			"path": "google.golang.org/genproto/googleapis/rpc/status",
-			"revision": "411e09b969b1170a9f0c467558eb4c4c110d9c77",
-			"revisionTime": "2017-04-04T13:20:09Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "Qi3g3AKz9TGXr70ESzK0izvOcic=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc",
 			"path": "google.golang.org/grpc",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "08icuA15HRkdYCt6H+Cs90RPQsY=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/codes",
 			"path": "google.golang.org/grpc/codes",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "K99T+YYvCBu0O1I3zuRcGhM5ADY=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/credentials",
 			"path": "google.golang.org/grpc/credentials",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "d0cyferoJguQhL6d2K6g2oC0mVM=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/grpclb/grpc_lb_v1",
 			"path": "google.golang.org/grpc/grpclb/grpc_lb_v1",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "3Lt5hNAG8qJAYSsNghR5uA1zQns=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/grpclog",
 			"path": "google.golang.org/grpc/grpclog",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "T3Q0p8kzvXFnRkMaK/G8mCv6mc0=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/internal",
 			"path": "google.golang.org/grpc/internal",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "OJnTFsZMDUCKpblFN9NlcBq5r2w=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/keepalive",
 			"path": "google.golang.org/grpc/keepalive",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "2dUKnKA66GwOfKV0M2tP78bt++o=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/metadata",
 			"path": "google.golang.org/grpc/metadata",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "4GSUFhOQ0kdFlBH4D5OTeKy78z0=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/naming",
 			"path": "google.golang.org/grpc/naming",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "3RRoLeH6X2//7tVClOVzxW2bY+E=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/peer",
 			"path": "google.golang.org/grpc/peer",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "xEHHTEIORdW+3USbRp52rt2I7wE=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/stats",
 			"path": "google.golang.org/grpc/stats",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "0tlQhEkF3hex/+tjcygLxeweuiY=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/status",
 			"path": "google.golang.org/grpc/status",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "N0TftT6/CyWqp6VRi2DqDx60+Fo=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/tap",
 			"path": "google.golang.org/grpc/tap",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		},
 		{
 			"checksumSHA1": "J/DrtqRLKrlWbzzUDP+6A3BZheY=",
+			"origin": "github.com/EricLewe/TerminalChat/vendor/google.golang.org/grpc/transport",
 			"path": "google.golang.org/grpc/transport",
-			"revision": "0914b4618016bce4ee2e6dadc97a5055bb03ca3c",
-			"revisionTime": "2017-05-02T17:16:45Z"
-		},
-		{
-			"checksumSHA1": "7zVTClYFaEW0jIE8d8wi3WqPoyc=",
-			"path": "myProjects/WatApi",
-			"revision": ""
-		},
-		{
-			"checksumSHA1": "5AuskNUAfJIwxd4Fdze0HhIJn/U=",
-			"path": "myProjects/WatClientApiLib",
-			"revision": ""
+			"revision": "6e3d25af60f16e8c712c9bb65e992e63eea2b2f7",
+			"revisionTime": "2017-05-07T17:55:37Z"
 		}
 	],
 	"rootPath": "github.com/EricLewe/TerminalChat/WatClient"
