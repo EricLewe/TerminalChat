@@ -38,7 +38,6 @@ import (
     "net"
     "golang.org/x/net/context"
     "google.golang.org/grpc"
-    pb "myProjects/WatApi"
     "google.golang.org/grpc/reflection"
     "google.golang.org/grpc/credentials"
     "io/ioutil"
@@ -50,10 +49,13 @@ import (
     "sync"
     "fmt"
     "math/rand"
+    pb "github.com/EricLewe/TerminalChat/WatApi"
+    watWBot "github.com/EricLewe/TerminalChat/WatWeatherBot"
+    "google.golang.org/grpc/peer"
 )
 
 const (
-	port = ":50051"
+    port = ":50051"
 )
 
 var (
@@ -61,8 +63,8 @@ var (
     jsonUsersFile = flag.String("json_Users_File", "WatApi/users.json", "A json file containing a list of users")
 )
 
-// server is used to implement helloworld.GreeterServer.
-type GreeterServer struct{
+// server is used to implement Wat.ChatServer.
+type ChatServer struct{
     savedMessages []*pb.ChatMessageReply
     savedConversations []*pb.ConversationReply
     savedUsers map[string]*pb.LoginRequest
@@ -75,8 +77,8 @@ type User struct {
     username string
     password string
 }
-func newServer() *GreeterServer {
-    s := new(GreeterServer)
+func newServer() *ChatServer {
+    s := new(ChatServer)
     s.savedConversations = []*pb.ConversationReply{}
     s.pipedMessages = make(map[string][]*pb.ChatMessageReply)
     s.subscribers = make(map[int32][]string)
@@ -86,13 +88,15 @@ func newServer() *GreeterServer {
     return s
 }
 
-func (s *GreeterServer) getSubscribers(id int32) []string {
+//returns all users who wants to get messages from a conversation
+func (s *ChatServer) getSubscribers(id int32) []string {
     s.mux.Lock()
     defer s.mux.Unlock()
     return s.subscribers[id]
 }
 
-func (s *GreeterServer) addSubscribers(id int32, username string) {
+//returns adds users who wants to get messages from a conversation
+func (s *ChatServer) addSubscribers(id int32, username string) {
     s.mux.Lock()
 
     if _, present := s.subscribers[id]; !present {
@@ -104,7 +108,8 @@ func (s *GreeterServer) addSubscribers(id int32, username string) {
     return
 }
 
-func (s *GreeterServer) getAndEmptyMessageTo(username string) []*pb.ChatMessageReply {
+//pops all pending messages from a user
+func (s *ChatServer) getAndEmptyMessage(username string) []*pb.ChatMessageReply {
     s.mux.Lock()
     a := s.pipedMessages[username]
     delete(s.pipedMessages, username)
@@ -112,7 +117,8 @@ func (s *GreeterServer) getAndEmptyMessageTo(username string) []*pb.ChatMessageR
     return a
 }
 
-func (s *GreeterServer) addMessageToUser(username string, chatMessageReply pb.ChatMessageReply) {
+//adds a pending message to a user
+func (s *ChatServer) addMessageToUser(username string, chatMessageReply pb.ChatMessageReply) {
     s.mux.Lock()
     if _, present := s.pipedMessages[username]; !present {
 	s.pipedMessages[username] = []*pb.ChatMessageReply{&chatMessageReply}
@@ -123,21 +129,30 @@ func (s *GreeterServer) addMessageToUser(username string, chatMessageReply pb.Ch
     return
 }
 
-func (s *GreeterServer) VerifyLogin(ctx context.Context, in *pb.LoginRequest) (*pb.LoginReply, error) {
+//Post method, returns the clients weather based on the peer structs ip
+func (s *ChatServer) GetWeather(ctx context.Context, in *pb.WeatherRequest) (*pb.WeatherReply, error) {
+    peer, _ := peer.FromContext(ctx)
+    broadcast, description := watWBot.GetCurrentWeather(peer.Addr.String())
+    fmt.Println("%q", broadcast)
+    weatherReply := pb.WeatherReply{ broadcast, description}
+    return &weatherReply, nil
+}
+
+//ensures username and password is correct when a user tries to connect
+func (s *ChatServer) VerifyLogin(ctx context.Context, in *pb.LoginRequest) (*pb.LoginReply, error) {
     loginReply := pb.LoginReply{ "", ""}
     if user, validUserName := s.savedUsers[in.Username]; validUserName {
 	if validPassword := in.Password == user.Password; validPassword {
 	    loginReply.Username = in.Username
 	    loginReply.MessageOfTheDay = "Welcome online " + in.Username
-
-	    //Put username into pipleline and get its related ids
 	}
     }
 
     return &loginReply, nil
 }
 
-func (s *GreeterServer) SendMessage(ctx context.Context, in *pb.ChatMessageReply) (*pb.Request, error) {
+//Get method, fetches a users sent messages and delegates them to the subscribers
+func (s *ChatServer) SendMessage(ctx context.Context, in *pb.ChatMessageReply) (*pb.Request, error) {
     //Pipe this msg into all related users
     for _, subscriber := range s.getSubscribers(in.ConversationId) {
 	s.addMessageToUser(subscriber, *in)
@@ -146,8 +161,8 @@ func (s *GreeterServer) SendMessage(ctx context.Context, in *pb.ChatMessageReply
     return &pb.Request{}, nil
 }
 
-
-func (s *GreeterServer) RouteConversation(request *pb.Request, stream pb.Chat_RouteConversationServer) error {
+//Post method, sends conversations even those the user may not acccess to (should be fixed)
+func (s *ChatServer) RouteConversation(request *pb.Request, stream pb.Chat_RouteConversationServer) error {
     for _, feature := range s.savedConversations {
 	if err := stream.Send(feature); err != nil {
 	    return err
@@ -156,7 +171,8 @@ func (s *GreeterServer) RouteConversation(request *pb.Request, stream pb.Chat_Ro
     return nil
 }
 
-func (s *GreeterServer) RouteChat(conversation *pb.ConversationRequest, stream pb.Chat_RouteChatServer) error {
+//Post method, sends messages to a user
+func (s *ChatServer) RouteChat(conversation *pb.ConversationRequest, stream pb.Chat_RouteChatServer) error {
     //We only what messages with specific Id, currently O(n) in worst case
     if conversation.Id > 0 {
 	for _, message := range s.savedMessages {
@@ -167,7 +183,7 @@ func (s *GreeterServer) RouteChat(conversation *pb.ConversationRequest, stream p
 	    }
 	}
     } else {
-	for _, feature := range s.getAndEmptyMessageTo(conversation.Request.Username) {
+	for _, feature := range s.getAndEmptyMessage(conversation.Request.Username) {
 	    s.savedMessages = append(s.savedMessages, feature)
 	    if err := stream.Send(feature); err != nil {
 		return err
@@ -177,8 +193,8 @@ func (s *GreeterServer) RouteChat(conversation *pb.ConversationRequest, stream p
     return nil
 }
 
-// loadMessages loads messages from a JSON file into the server struct.
-func (s *GreeterServer) loadMessages(filePath string) {
+// loadMessages loads messages from a JSON file into the server struct. (should be replace with PostgresSQL)
+func (s *ChatServer) loadMessages(filePath string) {
     file, err := ioutil.ReadFile(filePath)
     if err != nil {
 	grpclog.Fatalf("Failed to load default features: %v", err)
@@ -194,8 +210,9 @@ func (s *GreeterServer) loadMessages(filePath string) {
     }
 
 }
-
-func (s *GreeterServer) loadUsers(filePath string) ([]*pb.LoginRequest) {
+// loadUsers loads messages from a JSON file into the server struct, also generates
+// fake data regarding conversations (should be replaced with a db)
+func (s *ChatServer) loadUsers(filePath string) ([]*pb.LoginRequest) {
     file, err := ioutil.ReadFile(filePath)
     if err != nil {
 	grpclog.Fatalf("Failed to load default features: %v", err)
@@ -232,6 +249,7 @@ func (s *GreeterServer) loadUsers(filePath string) ([]*pb.LoginRequest) {
     return users;
 }
 
+//serialize concatenates usernames who are in same conversation
 func serialize(usernames []string) string {
     title := ""
     for i := 0; i < len(usernames); i++ {
@@ -244,6 +262,7 @@ func serialize(usernames []string) string {
     return title
 }
 
+//starts the server
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
