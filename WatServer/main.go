@@ -133,7 +133,6 @@ func (s *ChatServer) addMessageToUser(username string, chatMessageReply pb.ChatM
 func (s *ChatServer) GetWeather(ctx context.Context, in *pb.WeatherRequest) (*pb.WeatherReply, error) {
     peer, _ := peer.FromContext(ctx)
     broadcast, description := watWBot.GetCurrentWeather(peer.Addr.String())
-    fmt.Println("%q", broadcast)
     weatherReply := pb.WeatherReply{ broadcast, description}
     return &weatherReply, nil
 }
