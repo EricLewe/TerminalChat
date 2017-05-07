@@ -24,3 +24,18 @@ services:
     volumes:
      - .:/go/src/github.com/EricLewe/TerminalChat/WatClientApiLib
     working_dir: /go/src/github.com/EricLewe/TerminalChat/WatClientApiLib
+  weatherbot:
+     build: ./WatWeatherBot
+     depends_on:
+      - server
+     volumes:
+      - .:/go/src/github.com/EricLewe/TerminalChat/WatWeatherBot
+     working_dir: /go/src/github.com/EricLewe/TerminalChat/WatWeatherBot
+  watapi:
+     build: ./WatApi
+     depends_on:
+      - server
+      - client
+     volumes:
+      - .:/go/src/github.com/EricLewe/TerminalChat/WatApi
+     working_dir: /go/src/github.com/EricLewe/TerminalChat/WatApi
