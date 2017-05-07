@@ -1,12 +1,9 @@
 package WatClientApiLib
 
 import (
-	"fmt"
-	//uiUtil "github.com/gizak/termui"
+    "fmt"
     "github.com/gizak/termui"
-    pb "myProjects/WatApi"
-    //"google.golang.org/grpc/grpclog"
-    //pb "myProjects/WatApi"
+    pb "github.com/EricLewe/TerminalChat/WatApi"
     "time"
     "sync"
 )
@@ -14,10 +11,14 @@ import (
 var (
     cCollection ControlCollection
 )
+
+//ControlCollection maintains the views state
 type ControlCollection struct {
     SelectedList []*pb.ConversationReply
     SelectedConversation []*pb.ChatMessageReply
     ChatHasFocus bool
+    WeatherHasFocus bool
+    WeatherData pb.WeatherReply
     mux sync.Mutex
 }
 
@@ -31,10 +32,28 @@ func (cC *ControlCollection) Update(SelectedList []*pb.ConversationReply, Select
     return
 }
 
+func (cC *ControlCollection) UpdateWeather(weatherData pb.WeatherReply) {
+    cC.mux.Lock()
+
+    cC.WeatherData = weatherData
+
+    cC.mux.Unlock()
+    return
+}
+
 func (cC *ControlCollection) SetChatFocus(ChatHasFocus bool) {
     cC.mux.Lock()
 
     cC.ChatHasFocus = ChatHasFocus
+
+    defer cC.mux.Unlock()
+    return
+}
+
+func (cC *ControlCollection) SetWeatherFocus(WeatherHasFocus bool) {
+    cC.mux.Lock()
+
+    cC.WeatherHasFocus = WeatherHasFocus
 
     defer cC.mux.Unlock()
     return
@@ -65,6 +84,7 @@ func NewControlCollection() (*ControlCollection) {
     return cCollection
 }
 
+//InitWindow creates the termui and also starts the views main loop
 func InitWindow() {
     err := termui.Init()
     if err != nil {
@@ -88,15 +108,24 @@ func InitWindow() {
     termui.Loop()
 }
 
-func DoLogin(ch chan<- string) {
-    out := make(chan string, 2)
-    cCollection.MessagePipeline(out)
-
-    <-out
-    <-out
-    close(out)
+//Renders the weather information
+func RenderWeatherInfo(weatherData pb.WeatherReply) {
+    par1 := termui.NewPar(weatherData.Broadcast)
+    par1.Height = 5
+    par1.Width = 40
+    par1.Y = 10
+    par1.BorderLabel = "The weather today is: "
+    termui.Render(par1)
+    par2 := termui.NewPar(weatherData.Description)
+    par2.Height = 5
+    par2.Width = 40
+    par2.X = 40 + 2
+    par2.Y = 10
+    par2.BorderLabel = "That is: "
+    termui.Render(par2)
 }
 
+//Renders the terminal
 func RenderTerminal(asd string) string {
     terminalInputPar := termui.NewPar(asd)
     terminalInputPar.Height = 3
@@ -107,22 +136,22 @@ func RenderTerminal(asd string) string {
     return ""
 }
 
+//Renders the chatmessages
 func RenderMessages(chatmessages []*pb.ChatMessageReply, offset int) {
-	conversaionList := make([]termui.Par, 0)
-	for i, chatmessage := range chatmessages {
-	    par1 := termui.NewPar(fmt.Sprintf("Skrev: %s", chatmessage.Content))
-	    par1.Height = 3
-	    par1.Width = 60
-	    par1.X = 60 + 5
-	    par1.Y = 3 * i + offset
-	    par1.BorderLabel = chatmessage.SentByUser
-	    conversaionList = append(conversaionList, *par1)
-	    termui.Render(par1)
-	}
-
-
+    conversaionList := make([]termui.Par, 0)
+    for i, chatmessage := range chatmessages {
+	par1 := termui.NewPar(fmt.Sprintf("Skrev: %s", chatmessage.Content))
+	par1.Height = 3
+	par1.Width = 60
+	par1.X = 60 + 5
+	par1.Y = 3 * i + offset
+	par1.BorderLabel = chatmessage.SentByUser
+	conversaionList = append(conversaionList, *par1)
+	termui.Render(par1)
+    }
 }
 
+//Renders the conversations
 func RenderConversations(conversations []*pb.ConversationReply, offset int) {
     conversaionList := make([]termui.Par, 0)
     for i, conversation := range conversations {
@@ -138,10 +167,10 @@ func RenderConversations(conversations []*pb.ConversationReply, offset int) {
 	conversaionList = append(conversaionList, *par1)
 	termui.Render(par1)
     }
-
-
 }
 
+//Handles the users input and also interacts with the client to
+//recieve new data. The redrawing of the view is also done here.
 func (cC *ControlCollection) MessagePipeline(out chan<- string) {
     eventQueue := make(chan termui.Event)
     termui.Handle("/sys/kbd", func(event termui.Event) {
@@ -177,67 +206,29 @@ func (cC *ControlCollection) MessagePipeline(out chan<- string) {
 		    terminalInput = ""
 	    	case ev.Path == "/sys/kbd/<space>":
 		    terminalInput = fmt.Sprintf("%s%s", terminalInput, " ")
-	    case ev.Path == "/sys/kbd/<escape>":
-		cC.ChatHasFocus = false
-		b = 0
-	    case ev.Path == "/sys/kbd/<c-8>":
-		terminalInput = ""
+	        case ev.Path == "/sys/kbd/<escape>":
+		    cC.ChatHasFocus = false
+		    cC.WeatherHasFocus = false
+		    b = 0
+	        case ev.Path == "/sys/kbd/<c-8>":
+		    terminalInput = ""
 	    }
 
 	default:
-	    termui.Clear()
-	    RenderConversations(cC.SelectedList, a)
-	    if cC.ChatHasFocus {
-		RenderMessages(cC.SelectedConversation, b)
+	    if cC.WeatherHasFocus {
+		termui.Clear()
+		RenderWeatherInfo(cC.WeatherData)
+		time.Sleep(time.Millisecond * 70)
+	    } else {
+		termui.Clear()
+		RenderConversations(cC.SelectedList, a)
+		if cC.ChatHasFocus {
+		    RenderMessages(cC.SelectedConversation, b)
+		}
+		RenderTerminal(terminalInput)
+		time.Sleep(time.Millisecond * 70)
 	    }
-	    RenderTerminal(terminalInput)
-	    time.Sleep(time.Millisecond * 70)
+
 	}
     }
 }
-
-/*func RenderSelectedListWithOffset() {
-    for _, control := range cCollection.selectedList {
-	par1 := termui.NewPar(fmt.Sprintf("%d - %s", conversation.Id, "Lorem Ipsum dolori! Asd"))
-	par1.Height = 3
-	par1.Width = 40
-	par1.Y = 3 * i
-	par1.BorderLabel = conversation.Name
-	termui.Render(par1)
-	conversaionList = append(conversaionList, *par1)
-    }
-}*/
-
-
-//func InitWindow() {
-//	g, err := gocui.NewGui(gocui.OutputNormal)
-//	if err != nil {
-//		log.Panicln(err)
-//	}
-//	defer g.Close()
-//
-//	g.SetManagerFunc(layout)
-//
-//	if err := g.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, quit); err != nil {
-//		log.Panicln(err)
-//	}
-//
-//	if err := g.MainLoop(); err != nil && err != gocui.ErrQuit {
-//		log.Panicln(err)
-//	}
-//}
-//
-//func layout(g *gocui.Gui) error {
-//	maxX, maxY := g.Size()
-//	if v, err := g.SetView("hello", maxX/2-7, maxY/2, maxX/2+7, maxY/2+2); err != nil {
-//		if err != gocui.ErrUnknownView {
-//			return err
-//		}
-//		fmt.Fprintln(v, "Hello world!")
-//	}
-//	return nil
-//}
-//
-//func quit(g *gocui.Gui, v *gocui.View) error {
-//	return gocui.ErrQuit
-//}
