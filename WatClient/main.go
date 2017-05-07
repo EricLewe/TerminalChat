@@ -2,23 +2,23 @@ package main
 
 import (
     "golang.org/x/net/context"
-    pb "myProjects/WatApi"
     "google.golang.org/grpc/grpclog"
-    "io"
-    google_protobuf "github.com/golang/protobuf/ptypes/timestamp"
     "google.golang.org/grpc/credentials"
     "google.golang.org/grpc"
-    wcApi "myProjects/WatClientApiLib"
     "regexp"
     "strings"
     "strconv"
     "time"
     "os"
+    "io"
+    google_protobuf "github.com/golang/protobuf/ptypes/timestamp"
+    wcApi "github.com/EricLewe/TerminalChat/WatClientApiLib"
+    pb "github.com/EricLewe/TerminalChat/WatApi"
 )
 
 const (
-	address     = "localhost:50051"
-	defaultName = "world"
+    address     = "localhost:50051"
+    defaultName = "world"
 )
 
 type ChatClient struct {
@@ -29,12 +29,16 @@ type ChatClient struct {
 func newChatClient() *ChatClient {
     c := new(ChatClient)
     c.Username = ""
-    c.conversationId = -1
+    c.conversationId = -1 //The current conversation the client subscribes on
     return c
 }
-// login gets a SessionId based on a uuid if login was successful
-func Login(client pb.ChatClient, username string, password string) (string, error) {
 
+func getWeather(client pb.ChatClient) pb.WeatherReply {
+    weather, _ := client.GetWeather(context.Background(), &pb.WeatherRequest{})
+    return *weather
+}
+
+func Login(client pb.ChatClient, username string, password string) (string, error) {
     feature, err := client.VerifyLogin(context.Background(), &pb.LoginRequest{username, password})
     if err != nil {
 	grpclog.Fatalf("%v.VerifyLogin(_) = _, %v: ", client, err)
@@ -43,6 +47,7 @@ func Login(client pb.ChatClient, username string, password string) (string, erro
     return feature.Username, nil
 }
 
+//deprecated, should be replaced by dbs constraints
 func currentTime() (google_protobuf.Timestamp) {
     timeTemp := time.Now()
     timestamp := google_protobuf.Timestamp{  int64(timeTemp.Second()), int32(timeTemp.Nanosecond())}
@@ -56,6 +61,7 @@ func SendMessageToServer(client pb.ChatClient, conversationId int32,message stri
 
 }
 
+
 func GetConversations(client pb.ChatClient, sessionId string) (conversations []*pb.ConversationReply) {
 
     conversation := &pb.Request{ sessionId}
@@ -67,19 +73,19 @@ func GetConversations(client pb.ChatClient, sessionId string) (conversations []*
 	grpclog.Fatalf("%v.getConversations(_) = _, %v: ", client, err)
     }
     for {
-	feature, err := stream.Recv()
+	conversationReply, err := stream.Recv()
 	if err == io.EOF {
 	    break
 	}
 	if err != nil {
 	    grpclog.Fatalf("%v.getConversations(_) = _, %v", client, err)
 	}
-	conversations = append(conversations, feature)
-	grpclog.Println(feature)
+	conversations = append(conversations, conversationReply)
     }
     return conversations
 }
 
+//gets the messages sent by other clients from server, including itself
 func GetMessagesFromClients(client pb.ChatClient, conversationId int32,sessionId string, cCollection wcApi.ControlCollection, selectedList []*pb.ConversationReply) ([]*pb.ConversationReply, []*pb.ChatMessageReply) {
     messages := GetMessagesFromConversation(client, -1, sessionId)
 
@@ -98,7 +104,6 @@ func GetMessagesFromClients(client pb.ChatClient, conversationId int32,sessionId
     return selectedList, selectedConversation
 }
 
-// getMessagesFromConversation lists all the features within the given bounding Rectangle.
 func GetMessagesFromConversation(client pb.ChatClient, conversationId int32, sessionId string) (chatmessages []*pb.ChatMessageReply) {
     rect := &pb.ConversationRequest{conversationId, &pb.Request{sessionId}}
     stream, err := client.RouteChat(context.Background(), rect)
@@ -118,6 +123,17 @@ func GetMessagesFromConversation(client pb.ChatClient, conversationId int32, ses
     return chatmessages
 }
 
+//judges if the terminal may call the rendering of weather view or not.
+func isInputWheather(in string) bool {
+    var validID = regexp.MustCompile(`^!weather\s*$`)
+    in = strings.ToLower(in)
+    if validID.MatchString(in) {
+	return true
+    }
+    return false
+}
+
+//judges if the terminal may join a conversation, (create conversation is not implemented yet)
 func inputIsValid(in string) bool {
     var validID = regexp.MustCompile(`^((join)\s+([0-9]+$))|((create)\s+(\w+)(\s+(\w+))*)$`)
     in = strings.ToLower(in)
@@ -133,6 +149,7 @@ func getConversationIdFromInput(in string) int32 {
     return int32(id)
 }
 
+//runs a chatclient which provides data to the view.
 func main() {
     creds, err := credentials.NewClientTLSFromFile("WatApi/server.pem", "Eric")
     if err != nil {
@@ -177,6 +194,9 @@ func main() {
 	    if cCollection.ChatHasFocus {
 		SendMessageToServer(c, chatClient.conversationId, terminalInput, chatClient.Username)
 		cCollection.Update(GetMessagesFromClients(c, chatClient.conversationId, chatClient.Username, *cCollection, cCollection.SelectedList))
+	    } else if isInputWheather(terminalInput) {
+		cCollection.SetWeatherFocus(true)
+	      	cCollection.UpdateWeather(getWeather(c))
 	    } else if inputIsValid(terminalInput) {
 		if (strings.HasPrefix(terminalInput,"join")) {
 		    chatClient.conversationId = getConversationIdFromInput(terminalInput)
