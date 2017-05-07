@@ -1,6 +1,4 @@
-//package WatWeatherBot
-
-package main
+package WatWeatherBot
 
 import (
     "encoding/json"
@@ -64,7 +62,7 @@ type WeatherMap struct {
     } `json:"city"`
 }
 
-func getStations(body []byte) (*WeatherMap, error) {
+func initWeatherMap(body []byte) (*WeatherMap, error) {
     var s = new(WeatherMap)
     err := json.Unmarshal(body, &s)
     if(err != nil){
@@ -98,7 +96,7 @@ func GetWeatherMap(ip string)(wd WeatherMap) {
         panic(err.Error())
     }
 
-    s, err := getStations([]byte(body))
+    s, err := initWeatherMap([]byte(body))
     return *s
 }
 
