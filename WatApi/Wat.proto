@@ -39,6 +39,7 @@ import "google/protobuf/timestamp.proto";
 
 // The chat service definition.
 service Chat {
+  rpc getWeather (WeatherRequest) returns (WeatherReply) {}
   rpc verifyLogin (LoginRequest) returns (LoginReply) {}
   rpc sendMessage (ChatMessageReply) returns (Request) {}
   rpc RouteConversation (Request) returns (stream ConversationReply) {}
@@ -58,6 +59,15 @@ message RegisterRequest {
 message LoginReply {
     string username = 1;
     string messageOfTheDay = 2;
+}
+
+message WeatherRequest {
+    string ip = 1;
+}
+
+message WeatherReply {
+    string broadcast = 1;
+    string description = 2;
 }
 
 message Request {
