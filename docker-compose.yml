@@ -1,0 +1,19 @@
+version: '2'
+services:
+  server:
+    build: ./greeter_server
+    ports:
+     - "50051"
+    volumes:
+     - .:/go/src/testRun/greeter_server
+    working_dir: /go/src/testRun/greeter_server
+    command: go run greeter_server/main.go
+  client:
+    build: ./greeter_client
+    network_mode: "service:server"
+    depends_on:
+     - server
+    volumes:
+     - .:/go/src/testRun/greeter_client
+    working_dir: /go/src/testRun/greeter_client
+    command: go run greeter_client/main.go
