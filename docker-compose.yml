@@ -1,19 +1,26 @@
 version: '2'
 services:
   server:
-    build: ./greeter_server
+    build: ./WatServer
     ports:
      - "50051"
     volumes:
-     - .:/go/src/testRun/greeter_server
-    working_dir: /go/src/testRun/greeter_server
-    command: go run greeter_server/main.go
+     - .:/go/src/github.com/EricLewe/TerminalChat/WatServer
+    working_dir: /go/src/github.com/EricLewe/TerminalChat/WatServer
+    command: go run WatServer/main.go
   client:
-    build: ./greeter_client
+    build: ./WatClient
     network_mode: "service:server"
     depends_on:
      - server
     volumes:
-     - .:/go/src/testRun/greeter_client
-    working_dir: /go/src/testRun/greeter_client
-    command: go run greeter_client/main.go
+     - .:/go/src/github.com/EricLewe/TerminalChat/WatClient
+    working_dir: /go/src/github.com/EricLewe/TerminalChat/WatClient
+    command: go run WatClient/main.go
+  clientapi:
+    build: ./WatClientApiLib
+    depends_on:
+     - client
+    volumes:
+     - .:/go/src/github.com/EricLewe/TerminalChat/WatClientApiLib
+    working_dir: /go/src/github.com/EricLewe/TerminalChat/WatClientApiLib
